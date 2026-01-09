@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Comparison Results</title>
+  <link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+
+</head>
+<body>
+  <h1>Comparison Results</h1>
+
+  <p><strong>Sequential Fetch Time:</strong> <%= seqTime %> ms</p>
+  <p><strong>Parallel Fetch Time:</strong> <%= parTime %> ms</p>
+  <p><strong>Speedup (Amdahl’s Law):</strong> <%= speedup %></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Car</th>
+        <th>Price ($)</th>
+        <th>Mileage (km/l)</th>
+        <th>Engine (cc)</th>
+        <th>Safety</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% compareResults.forEach(car => { %>
+        <tr>
+          <td><%= car.name %></td>
+          <td><%= car.price %></td>
+          <td><%= car.mileage %></td>
+          <td><%= car.engine %></td>
+          <td><%= car.safety %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <h2>Reduction / Aggregation</h2>
+  <p><strong>Average Price:</strong> <%= reduction.avgPrice %></p>
+  <p><strong>Average Mileage:</strong> <%= reduction.avgMileage %></p>
+  <p><strong>Average Engine:</strong> <%= reduction.avgEngine %></p>
+  <p><strong>Average Safety:</strong> <%= reduction.avgSafety %></p>
+  <p><strong>Price Max:</strong> <%= reduction.priceMax %>, <strong>Price Min:</strong> <%= reduction.priceMin %></p>
+
+  <a href="/">Compare Again</a>
+</body>
+</html>

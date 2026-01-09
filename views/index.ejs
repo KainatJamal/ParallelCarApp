@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Parallel Car Comparison</title>
+  <link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/png" href="/favicon.png">
+
+</head>
+<body>
+  <h1>Parallel Car Comparison System</h1>
+
+  <form action="/compare" method="POST">
+    <h2>Select 2–3 Cars:</h2>
+    <% cars.forEach(car => { %>
+      <div>
+        <label>
+          <input type="checkbox" name="cars" value="<%= car.id %>">
+          <%= car.name %>
+        </label>
+      </div>
+    <% }) %>
+
+    <button type="submit">Compare Cars</button>
+  </form>
+</body>
+</html>
