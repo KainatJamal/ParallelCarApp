@@ -7,11 +7,11 @@ const carService2 = require("./services/carService2");
 const carService3 = require("./services/carService3");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // MUST use process.env.PORT on Azure
 
 // ---------------------- MIDDLEWARE ----------------------
 
-// Serve static files (CSS, images, JS, favicon)
+// Serve static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, "public")));
 
 // Enable URL-encoded form data
@@ -49,14 +49,14 @@ app.get("/", (req, res) => {
 
 // Compare page
 app.post("/compare", async (req, res) => {
-  let selectedIds = req.body.cars;
-
-  // Ensure selectedIds is an array
-  if (!selectedIds) return res.send("Please select at least 2 cars.");
-  if (!Array.isArray(selectedIds)) selectedIds = [selectedIds];
-  if (selectedIds.length < 2) return res.send("Please select at least 2 cars.");
-
   try {
+    let selectedIds = req.body.cars;
+
+    // Validate selection
+    if (!selectedIds) return res.send("Please select at least 2 cars.");
+    if (!Array.isArray(selectedIds)) selectedIds = [selectedIds];
+    if (selectedIds.length < 2) return res.send("Please select at least 2 cars.");
+
     // ------------------ Sequential Fetch ------------------
     const seqStart = Date.now();
     const seqResults = [];
@@ -76,7 +76,6 @@ app.post("/compare", async (req, res) => {
       })
     );
     const parTime = Date.now() - parStart;
-
     const speedup = (seqTime / parTime).toFixed(2);
 
     // ------------------ Aggregation / Reduction ------------------
@@ -115,4 +114,9 @@ app.post("/compare", async (req, res) => {
 });
 
 // ---------------------- START SERVER ----------------------
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log("Open this URL in browser: http://localhost:" + PORT);
+});
+
+module.exports = app; // Optional: for testing
