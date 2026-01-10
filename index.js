@@ -2,9 +2,9 @@ const express = require("express");
 const path = require("path");
 
 // Import simulated distributed services
-const carService1 = require("../services/carService1");
-const carService2 = require("../services/carService2");
-const carService3 = require("../services/carService3");
+const carService1 = require("./services/carService1");
+const carService2 = require("./services/carService2");
+const carService3 = require("./services/carService3");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
